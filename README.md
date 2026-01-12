@@ -52,25 +52,15 @@ npm run dev
 
 ## ☁️ 部署
 
-### 方案 1：一键部署（推荐）
+### 部署到Cloudflare Pages
 
-此操作将自动：
-
-1. 创建新的 Cloudflare Pages 项目。
-2. 连接到你的 GitHub 仓库。
-3. 配置构建设置。
-
-> **注意**：部署完成后，如果你想在生产环境使用 Keystatic CMS，仍需配置 **GitHub App**（见下方第 2 步）。
-
-### 方案 2：手动部署
-
-1. 将代码 Push 到 GitHub 仓库。
-2. 登录 Cloudflare Dashboard > Pages > Create a project > Connect to Git。
+1. Clone 这个仓库。
+2. 登录 Cloudflare Dashboard > Workers 和 Pages > 创建应用程序 > 下面小字Pages Get Started > Connect to Git。
 3. 选择你的仓库。
 4. **构建设置 (Build Settings)**：
 * **Framework Preset**: Astro
-* **Build Command**: `npm run build`
-* **Output Directory**: `dist`
+* **Build Command**: `npm run build` (默认)
+* **Output Directory**: `dist` (默认)
 
 
 5. 点击 **Save and Deploy**。
@@ -82,9 +72,11 @@ npm run dev
 1. **创建 GitHub App**：
 * 前往 [GitHub Developer Settings](https://github.com/settings/apps) > New GitHub App。
 * **Homepage URL**: `https://your-site.pages.dev`
-* **Callback URL**: `https://your-site.pages.dev/keystatic/oauth/callback`
+* **Callback URL**: `https://your-site.pages.dev/api/keystatic/github/oauth/callback`
+* 如果你设置了自定义域名（国内环境强烈推荐），请相应替换上述域名。
 * **Permissions**: 对 "Contents" 的读写权限 (Read & Write)，对 "Metadata" 的只读权限 (Read-only)。
 * 保存 `Client ID` 并生成一个 `Client Secret`。
+* 左边菜单找到 **Install App**，安装到你的内容仓库。
 
 
 2. **在 Cloudflare 设置环境变量**：
@@ -93,9 +85,8 @@ npm run dev
 * `KEYSTATIC_GITHUB_CLIENT_ID`: (你的 Client ID)
 * `KEYSTATIC_GITHUB_CLIENT_SECRET`: (你的 Client Secret)
 * `KEYSTATIC_SECRET`: (用于会话加密的随机长字符串)
-
-
-
+* 添加完以后重新部署以使变量生效。
+* 部署完成后，访问 `https://your-site.pages.dev/keystatic`，使用 GitHub 登录即可管理线上内容。
 
 
 ## 📂 项目结构

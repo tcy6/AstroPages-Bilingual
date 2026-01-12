@@ -50,26 +50,15 @@ npm run dev
 
 ## ☁️ Deployment
 
-### Option 1: One-Click Deploy (Recommended)
+### Deploy to Cloudflare Pages
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/t0saki/AstroPages-Bilingual)
-
-This will automatically:
-1.  Create a new Cloudflare Pages project.
-2.  Connect it to your GitHub repository.
-3.  Configure the build settings.
-
-> **Note**: After deployment, you must still configure the **GitHub App** (Step 2 below) if you want to use the Keystatic CMS in production.
-
-### Option 2: Manual Deployment
-
-1.  Push your code to a GitHub repository.
-2.  Log in to Cloudflare Dashboard > Pages > Create a project > Connect to Git.
+1.  Clone this repository.
+2.  Log in to Cloudflare Dashboard > Workers & Pages > Create application > Pages (Get Started) > Connect to Git.
 3.  Select your repository.
 4.  **Build Settings**:
     -   **Framework Preset**: Astro
-    -   **Build Command**: `npm run build`
-    -   **Output Directory**: `dist`
+    -   **Build Command**: `npm run build` (default)
+    -   **Output Directory**: `dist` (default)
 5.  Click **Save and Deploy**.
 
 ### Configure Production CMS (GitHub Mode)
@@ -79,9 +68,11 @@ To edit content on the live site (`/keystatic`), you need to connect Keystatic t
 1.  **Create a GitHub App**:
     -   Go to [GitHub Developer Settings](https://github.com/settings/apps) > New GitHub App.
     -   **Homepage URL**: `https://your-site.pages.dev`
-    -   **Callback URL**: `https://your-site.pages.dev/keystatic/oauth/callback`
+    -   **Callback URL**: `https://your-site.pages.dev/api/keystatic/github/oauth/callback`
+    -   If you have set up a custom domain, please replace the domain above accordingly.
     -   **Permissions**: Read & Write access to "Contents", Read-only access to "Metadata".
     -   Save the `Client ID` and generate a `Client Secret`.
+    -   Find **Install App** in the left menu and install it to your content repository.
 
 2.  **Set Environment Variables in Cloudflare**:
     -   Go to your Pages project > Settings > Environment variables.
