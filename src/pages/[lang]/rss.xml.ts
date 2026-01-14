@@ -24,10 +24,13 @@ export async function GET({ params }: { params: { lang: string } }) {
   const filteredPosts = posts.filter(post => post.id.startsWith(`${lang}/`));
   const sortedPosts = getSortedPosts(filteredPosts);
 
+  // Chinese uses root, English uses /en/ prefix
+  const siteUrl = lang === 'zh' ? SITE.website : `${SITE.website}/${lang}`;
+
   return rss({
     title: `${SITE.title} - ${lang.toUpperCase()}`,
     description: SITE.desc,
-    site: `${SITE.website}/${lang}/`,
+    site: siteUrl,
     items: sortedPosts.map(({ data, id, filePath }) => ({
       link: getPath(id, filePath),
       title: data.title,
