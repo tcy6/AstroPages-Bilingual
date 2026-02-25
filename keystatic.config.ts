@@ -7,7 +7,10 @@ export default config({
     process.env.NODE_ENV === 'production' || import.meta.env?.PROD
       ? {
           kind: 'github',
-          repo: 'tcy6/AstroPages-Bilingual',
+          repo: {
+            owner: 'tcy6',            // 你的 GitHub 用户名
+            name: 'AstroPages-Bilingual', // 你的仓库名
+          },
         }
       : {
           kind: 'local',
